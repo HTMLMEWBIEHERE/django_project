@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Task Form</title>
-    <!-- Include Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         * {
@@ -111,10 +110,8 @@
         <a href="{% url 'task_list' %}">Back to Task List</a>
     </div>
 
-    <!-- Include Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        // Initialize Flatpickr on the due_date field
         flatpickr("input[name='due_date']", {
             dateFormat: "Y-m-d",
         });
