@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <style>
+        * {
+            font-family: 'gotham';
+        }
+
+        body {
+            margin-left: 100px;
+            margin-right: 100px;
+            position: relative;
+            font-family: Arial, sans-serif;
+        }
+
+        .container { 
+          width: 90%;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        button {
+            background-color: crimson;
+            color: white;
+            border: 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+        #create {
+            width: 150px;
+            padding: 10px;
+            background-color: crimson;
+            color: white;
+            border: 0;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            align-self: flex-end;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            border: 2px solid #000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+            border: 2px solid #000;
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            border: 2px solid #000;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task List</h1>
+    <form method="GET" action="{% url 'task_list' %}">
+        <input type="text" name="q" placeholder="Search tasks" value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+    <div class="container">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.status }}</td>
+                        <td>{{ task.due_date }}</td>
+                        <td>
+                            <a href="{% url 'task_update' task.pk %}">Edit</a>
+                            <a href="{% url 'task_delete' task.pk %}">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button id="create" onclick="window.location.href='{% url 'task_create' %}'">Create New Task</button>
+    </div>
+</body>
+</html>
